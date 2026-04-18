@@ -9,7 +9,7 @@ function calcularTodo() {
     let extras = parseFloat(document.getElementById('horasExtra').value) || 0;
     let nivelRiesgo = document.getElementById('riesgo').value;
 
-    // 2. Validaciones del Punto 2 
+    // 2. Validaciones
     if (edad < 18) {
         alert("Lo siento " + nombre + ", eres menor de edad, no puedes seguir.");
         return;
@@ -19,8 +19,8 @@ function calcularTodo() {
         return;
     }
 
-    // 3. Empezar los cálculos (Punto 4)
-    // Valores fijos para 2026 que puso la profe
+    // 3. Empezar los cálculos
+    // Valores fijos para 2026
     const SALARIO_MINIMO = 1750905;
     const SUBSIDIO_TRANSPORTE = 249095;
     const VALOR_UVT = 52.37;
@@ -55,12 +55,12 @@ function calcularTodo() {
 
     let descuentoARL = ibc * tarifaARL;
 
-    // Retención en la fuente (Punto extra - lógica simplificada de la tabla)
+    // Retención en la fuente
     let baseUVT = (ibc - salud - pension) / VALOR_UVT;
     let impuestoRenta = 0;
 
     if (baseUVT > 95) {
-        // Cálculo básico para el primer rango de la tabla
+        // Cálculo
         impuestoRenta = (baseUVT - 95) * 0.19 * VALOR_UVT;
     }
 
@@ -68,7 +68,7 @@ function calcularTodo() {
     let deduccionesTotales = salud + pension + fondoSolidaridad + descuentoARL + impuestoRenta;
     let sueldoNeto = (totalGanado + auxilio) - deduccionesTotales;
 
-    // 5. Mostrar en pantalla
+    // 5. Mostrar en la pantalla
     document.getElementById('seccion-resultados').style.display = 'block';
     let zonaTexto = document.getElementById('mostrarDatos');
     
