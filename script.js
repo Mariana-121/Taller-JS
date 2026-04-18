@@ -1,5 +1,4 @@
-// Nombre: [Mariana Leal Rojas]
-// ID: [1077228370]
+// Nombre: Mariana Leal Rojas - Documento: 1077228370
 
 function calcularTodo() {
     // 1. Traer los datos de la página
