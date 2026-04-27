@@ -5,50 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taller JS</title>
+    <title>Simulador de Nómina 2026</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <div class="caja-principal">
         <h1>Simulador de Pagos 2026</h1>
-        
-        <div id="formulario">
-            <h3>Paso 1: Datos Personales</h3>
-            <input type="text" id="nombre" placeholder="Nombre completo">
-            <input type="number" id="edad" placeholder="¿Cuántos años tienes?">
-            <select id="tipoDoc">
-                <option value="">Selecciona Documento</option>
-                <option value="CC">Cédula de Ciudadanía</option>
-                <option value="TI">Tarjeta de Identidad</option>
-                <option value="CE">Cédula de Extranjería</option>
-            </select>
-            <input type="text" id="documento" placeholder="Número de documento">
-            
-            <hr>
-            
-            <h3>Paso 2: Datos del Trabajo</h3>
-            <input type="number" id="salarioBase" placeholder="Salario base (ej: 2000000)">
-            <input type="number" id="comisiones" placeholder="Comisiones" value="0">
-            <input type="number" id="horasExtra" placeholder="Horas extra" value="0">
-            
-            <label>Nivel de Riesgo (ARL):</label>
-            <select id="riesgo">
-                <option value="1">Nivel 1 (Mínimo)</option>
-                <option value="2">Nivel 2</option>
-                <option value="3">Nivel 3</option>
-                <option value="4">Nivel 4</option>
-                <option value="5">Nivel 5 (Máximo)</option>
-            </select>
-
-            <button onclick="calcularTodo()">Calcular mi sueldo</button>
-        </div>
-
-        <div id="seccion-resultados" style="margin-top: 20px; display: none;">
-            <h3>Resultados del Cálculo</h3>
-            <div id="mostrarDatos"></div>
-        </div>
+        <p>Sigue las instrucciones en las ventanas emergentes.</p>
+        <p>Al finalizar, revisa la <strong>Consola (F12)</strong> para ver los resultados.</p>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
