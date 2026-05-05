@@ -75,7 +75,7 @@ if (edad < 18) {
     let deduccionesTotales = salud + pension + descuentoARL + impuestoRenta;
     let sueldoNeto = (totalGanado + auxilio) - deduccionesTotales;
 
-    // 5. Resultados por consola
+    // 5. Resultados por console
     console.log("--- RESULTADOS SIMULADOR 2026 ---");
     console.log("Empleado: " + nombre);
     console.log("Documento: " + tipoDoc + " " + documento);
