@@ -15,26 +15,43 @@
         <section class="seccion-datos">
             <h3>Datos del Empleado</h3>
             <div class="fila-input">
-                <label>Nombre: <input type="text" id="nombre"></label>
-                <label>Edad: <input type="number" id="edad"></label>
+                <label>Nombre: 
+                    <input type="text" id="nombre" placeholder="Nombre completo">
+                </label>
+                <label>Edad: 
+                    <input type="number" id="edad" min="18" max="120" placeholder="18-120">
+                </label>
                 <label>Tipo de documento: 
                     <select id="tipoDoc">
                         <option value="CC">Cédula de Ciudadanía</option>
                         <option value="TI">Tarjeta de Identidad</option>
                         <option value="CE">Cédula de Extranjería</option>
+                        <option value="PP">Pasaporte</option>
                     </select>
                 </label>
-                <label>Número de documento: <input type="text" id="documento"></label>
+                <label>Número de documento: 
+                    <input type="text" id="documento" maxlength="10" placeholder="Máx 10 dígitos" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                </label>
             </div>
         </section>
 
         <section class="seccion-datos">
             <h3>Datos Laborales</h3>
             <div class="fila-input">
-                <label>Salario Base: <input type="number" id="salario"></label>
-                <label>Horas extra: <input type="number" id="extras"></label>
+                <label>Salario Base: 
+                    <input type="number" id="salario" placeholder="Ej: 2500000">
+                </label>
+                <label>Horas extra: 
+                    <input type="number" id="extras" placeholder="Total $ extras">
+                </label>
                 <label>Nivel de Riesgo: 
-                    <input type="number" id="nivelRiesgo" min="1" max="5" placeholder="1-5">
+                    <select id="nivelRiesgo">
+                        <option value="1">Nivel 1 (0.522%)</option>
+                        <option value="2">Nivel 2 (1.044%)</option>
+                        <option value="3">Nivel 3 (2.436%)</option>
+                        <option value="4">Nivel 4 (4.350%)</option>
+                        <option value="5">Nivel 5 (6.960%)</option>
+                    </select>
                 </label>
             </div>
         </section>
@@ -43,6 +60,7 @@
 
         <div id="resultado" class="resultado-box"></div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
