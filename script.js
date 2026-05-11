@@ -1,87 +1,86 @@
 // Nombre: Mariana Leal Rojas - Documento: 1077228370
 
-//1. Ingreso de información básica
-let nombre = prompt("Ingresa tu nombre completo:");
-let edad = parseInt(prompt("Ingresa tu edad:"));
-let tipoDoc = prompt("Tipo de documento (RC, TI, CC, PP, CE):").toUpperCase();
-let documento = prompt("Número de documento (sin puntos ni comas):");
+function calcularNomina() {
+    // 1. Obtención de valores desde el HTML
+    const nombre = document.getElementById('nombre').value;
+    const edad = parseInt(document.getElementById('edad').value);
+    const documento = document.getElementById('documento').value;
+    const salario = parseFloat(document.getElementById('salario').value);
+    const extras = parseFloat(document.getElementById('extras').value) || 0;
+    const nivelRiesgo = document.getElementById('nivelRiesgo').value;
 
-// 2. Validación de perfil según la edad
-if (edad < 18) {
-    alert("Lo siento " + nombre + ", eres menor de edad, no puedes seguir.");
-} else if (edad < 25) {
-    alert("Te clasificas como: 'Usuario beneficiario por cotizante'. El proceso se detiene aquí.");
-} else {
-    // Valores de referencia para el año 2026
+    // 2. Validaciones de Seguridad y Rango (Edge Cases del Taller)
+    
+    // Validar campos vacíos
+    if (!nombre || isNaN(edad) || !documento || isNaN(salario)) {
+        alert("Error: Todos los campos son obligatorios.");
+        return;
+    }
+
+    // Validar Edad (Rango 18 - 120 años)
+    if (edad < 18) {
+        alert("Error: " + nombre + ", el sistema solo permite usuarios mayores de edad (18+).");
+        return;
+    } else if (edad > 120) {
+        alert("Error: Por favor ingresa una edad válida (Máximo 120 años).");
+        return;
+    }
+
+    // Validar Documento (Límite de caracteres definido en el taller)
+    if (documento.length < 6 || documento.length > 10) {
+        alert("Error: El número de documento debe tener entre 6 y 10 dígitos.");
+        return;
+    }
+
+    // Validar Salario Negativo
+    if (salario < 1) {
+        alert("Error: El número ingresado debe ser mayor a 1.");
+        return;
+    }
+
+    // 3. Constantes Legales para 2026
     const SALARIO_MINIMO = 1750905;
     const SUBSIDIO_TRANSPORTE = 249095;
     const VALOR_UVT = 52.37;
 
-    let salario, comisiones, extras, nivelRiesgo;
+    // 4. Lógica de Cálculos Laborales
+    let totalGanado = salario + extras;
+    let ibc = totalGanado * 0.70; // Ingreso Base de Cotización (70%)
 
-    // Validación para mayores de 60 años
-    if (edad >= 60) {
-        salario = parseFloat(prompt("Ingresa el valor de tu mesada pensional:"));
-        comisiones = 0;
-        extras = 0;
-        nivelRiesgo = "1"; 
-    } else {
-        // Ingreso de información salarial
-        salario = parseFloat(prompt("Ingresa tu salario base:"));
-        comisiones = parseFloat(prompt("Ingresa tus comisiones (0 si no tiene):")) || 0;
-        extras = parseFloat(prompt("Ingresa total horas extra (0 si no tiene):")) || 0;
-        nivelRiesgo = prompt("Nivel de Riesgo ARL (1 a 5):");
-    }
-
-    // 4. Cálculo de Obligaciones Laborales
-    let totalGanado = salario + comisiones + extras;
-    let ibc = totalGanado * 0.70; 
-
-    // Auxilio de transporte
-    let auxilio = 0;
-    if (salario <= (SALARIO_MINIMO * 2)) {
-        auxilio = SUBSIDIO_TRANSPORTE;
-    }
-
-    // Descuentos de ley (Salud y Pensión)
+    // Cálculo de Auxilio de Transporte (Si gana 2 SMMLV o menos)
+    let auxilio = (salario <= (SALARIO_MINIMO * 2)) ? SUBSIDIO_TRANSPORTE : 0;
+    
+    // Descuentos de Salud y Pensión (4% cada uno sobre el IBC)
     let salud = ibc * 0.04;
     let pension = ibc * 0.04;
     
-    // Fondo de Solidaridad Pensional
-    let fondoSolidaridad = 0;
-    if (ibc >= (SALARIO_MINIMO * 4)) {
-        fondoSolidaridad = ibc * 0.01;
-    }
-    pension += fondoSolidaridad;
+    // Cálculo de ARL según nivel seleccionado
+    const tarifasARL = { 
+        "1": 0.00522, 
+        "2": 0.01044, 
+        "3": 0.02436, 
+        "4": 0.04350, 
+        "5": 0.06960 
+    };
+    let descuentoARL = ibc * tarifasARL[nivelRiesgo];
 
-    // Cálculo de ARL según nivel de riesgo
-    let tarifaARL = 0;
-    if (nivelRiesgo === "1") tarifaARL = 0.00522;
-    else if (nivelRiesgo === "2") tarifaARL = 0.01044;
-    else if (nivelRiesgo === "3") tarifaARL = 0.02436;
-    else if (nivelRiesgo === "4") tarifaARL = 0.04350;
-    else if (nivelRiesgo === "5") tarifaARL = 0.06960;
-    
-    let descuentoARL = ibc * tarifaARL;
-
-    // Retención en la Fuente
-    let baseUVT = (ibc - salud - (pension - fondoSolidaridad)) / VALOR_UVT;
-    let impuestoRenta = 0;
-    if (baseUVT > 95) {
-        impuestoRenta = (baseUVT - 95) * 0.19 * VALOR_UVT;
-    }
-
-    // Totales finales
-    let deduccionesTotales = salud + pension + descuentoARL + impuestoRenta;
+    // Totales
+    let deduccionesTotales = salud + pension + descuentoARL;
     let sueldoNeto = (totalGanado + auxilio) - deduccionesTotales;
 
-    // 5. Resultados por console
-    console.log("--- RESULTADOS SIMULADOR 2026 ---");
-    console.log("Empleado: " + nombre);
-    console.log("Documento: " + tipoDoc + " " + documento);
-    console.log("Salario Base: $" + salario);
-    console.log("IBC: $" + ibc);
-    console.log("Auxilio Transporte: $" + auxilio);
-    console.log("Deducciones Totales: $" + deduccionesTotales);
-    console.log("TOTAL NETO A RECIBIR: $" + sueldoNeto);
+    // 5. Salida de resultados en el HTML
+    const resultadoDiv = document.getElementById('resultado');
+    resultadoDiv.style.display = "block"; // Hace visible el cuadro de resultado
+    
+    resultadoDiv.innerHTML = `
+        <h2 style="color: #2c3e50; margin-top: 0;">--- RESULTADOS SIMULADOR 2026 ---</h2>
+        <p><strong>Empleado:</strong> ${nombre}</p>
+        <p><strong>Documento:</strong> ${documento}</p>
+        <p><strong>Salario Base:</strong> $${salario.toLocaleString('es-CO')}</p>
+        <p><strong>Auxilio Transporte:</strong> $${auxilio.toLocaleString('es-CO')}</p>
+        <hr>
+        <p><strong>IBC (70%):</strong> $${ibc.toLocaleString('es-CO')}</p>
+        <p><strong>Deducciones Totales:</strong> $${deduccionesTotales.toLocaleString('es-CO')}</p>
+        <h3 style="color: #27ae60;">TOTAL NETO A RECIBIR: $${sueldoNeto.toLocaleString('es-CO')}</h3>
+    `;
 }
