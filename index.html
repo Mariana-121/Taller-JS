@@ -5,14 +5,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Nómina 2026</title>
+    <title>Calculadora de Nómina 2026</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
     <div class="caja-principal">
-        <h1>Simulador de Pagos 2026</h1>
-        <p>Sigue las instrucciones en las ventanas emergentes.</p>
-        <p>Al finalizar, revisa la <strong>Consola (F12)</strong> para ver los resultados.</p>
+        <h1>Calculadora de Nómina</h1>
+        
+        <section class="seccion-datos">
+            <h3>Datos del Empleado</h3>
+            <div class="fila-input">
+                <label>Nombre: <input type="text" id="nombre"></label>
+                <label>Edad: <input type="number" id="edad"></label>
+                <label>Tipo de documento: 
+                    <select id="tipoDoc">
+                        <option value="CC">Cédula de Ciudadanía</option>
+                        <option value="TI">Tarjeta de Identidad</option>
+                        <option value="CE">Cédula de Extranjería</option>
+                    </select>
+                </label>
+                <label>Número de documento: <input type="text" id="documento"></label>
+            </div>
+        </section>
+
+        <section class="seccion-datos">
+            <h3>Datos Laborales</h3>
+            <div class="fila-input">
+                <label>Salario Base: <input type="number" id="salario"></label>
+                <label>Horas extra: <input type="number" id="extras"></label>
+                <label>Nivel de Riesgo: 
+                    <input type="number" id="nivelRiesgo" min="1" max="5" placeholder="1-5">
+                </label>
+            </div>
+        </section>
+
+        <button onclick="calcularNomina()">Calcular Nómina</button>
+
+        <div id="resultado" class="resultado-box"></div>
     </div>
     <script src="script.js"></script>
 </body>
